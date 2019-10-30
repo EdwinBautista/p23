@@ -5,6 +5,8 @@
  */
 package pr23;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 18PROGB0156
@@ -46,12 +48,12 @@ public class Figuras extends javax.swing.JFrame {
         txtATr = new javax.swing.JTextField();
         lblD1 = new javax.swing.JLabel();
         lblD2 = new javax.swing.JLabel();
-        txtD1 = new javax.swing.JTextField();
-        txtD2 = new javax.swing.JTextField();
+        txtDiag1 = new javax.swing.JTextField();
+        txtDiag2 = new javax.swing.JTextField();
         btnCRombo = new javax.swing.JButton();
         lblRRombo = new javax.swing.JLabel();
         txtARo = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
+        lblRadio = new javax.swing.JLabel();
         txtRadio = new javax.swing.JTextField();
         lblRCirculo = new javax.swing.JLabel();
         btnCCi = new javax.swing.JButton();
@@ -93,6 +95,11 @@ public class Figuras extends javax.swing.JFrame {
         });
 
         txtAreaCu.setEditable(false);
+        txtAreaCu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAreaCuActionPerformed(evt);
+            }
+        });
 
         lblResultado.setText("Resultado:");
 
@@ -133,11 +140,16 @@ public class Figuras extends javax.swing.JFrame {
 
         txtARo.setEditable(false);
 
-        jLabel11.setText("radio");
+        lblRadio.setText("radio");
 
         lblRCirculo.setText("Resultado:");
 
         btnCCi.setText("Calcular");
+        btnCCi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCCiActionPerformed(evt);
+            }
+        });
 
         txtACi.setEditable(false);
 
@@ -202,8 +214,8 @@ public class Figuras extends javax.swing.JFrame {
                                         .addComponent(lblD2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtD1)
-                                        .addComponent(txtD2, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                                        .addComponent(txtDiag1)
+                                        .addComponent(txtDiag2, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
                                     .addGap(0, 0, Short.MAX_VALUE)))
                             .addComponent(btnCRombo))
                         .addGap(49, 49, 49)
@@ -212,7 +224,7 @@ public class Figuras extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtRadio)))
                             .addGroup(layout.createSequentialGroup()
@@ -239,15 +251,15 @@ public class Figuras extends javax.swing.JFrame {
                     .addComponent(lblBase, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblD1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtD1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDiag1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblD2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtD2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDiag2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCCuadro)
@@ -275,9 +287,13 @@ public class Figuras extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLadoActionPerformed
 
     private void btnCCuadroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCCuadroActionPerformed
+        try{
         double lado = Double.parseDouble(txtLado.getText());
         txtAreaCu.setText(String.valueOf(lado*lado));
         txtLado.setText("");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error,debes ingresar un valor!");
+        }
     }//GEN-LAST:event_btnCCuadroActionPerformed
 
     private void txtBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBaseActionPerformed
@@ -285,17 +301,42 @@ public class Figuras extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBaseActionPerformed
 
     private void btnCTrianguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCTrianguloActionPerformed
+       try{
        double Base = Double.parseDouble(txtBase.getText());
        double Altura = Double.parseDouble(txtAltura.getText());
        txtATr.setText(String.valueOf(Base*Altura));
        txtBase.setText("");
        txtAltura.setText("");
+       }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error,debes ingresar un valor!");
+        }
     }//GEN-LAST:event_btnCTrianguloActionPerformed
 
     private void btnCRomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRomboActionPerformed
-       double Dia1 = Double.parseDouble(txtD1.getText());
-       double Dia2 = Double.parseDouble(txtD2.getText());
+      try{
+       double Dia1 = Double.parseDouble(txtDiag1.getText());
+       double Dia2 = Double.parseDouble(txtDiag2.getText());
+       txtARo.setText(String.valueOf(Dia1*Dia2));
+       txtDiag1.setText("");
+       txtDiag2.setText("");
+       }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error,debes ingresar un valor!");
+        }
     }//GEN-LAST:event_btnCRomboActionPerformed
+
+    private void btnCCiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCCiActionPerformed
+        try{
+        double Radio = Double.parseDouble(txtRadio.getText());
+        txtACi.setText(String.valueOf((3.1416*(Radio*Radio))));
+        txtRadio.setText("");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error,debes ingresar un valor!");
+        }
+    }//GEN-LAST:event_btnCCiActionPerformed
+
+    private void txtAreaCuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAreaCuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAreaCuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -338,7 +379,6 @@ public class Figuras extends javax.swing.JFrame {
     private javax.swing.JButton btnCRombo;
     private javax.swing.JButton btnCTriangulo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -350,6 +390,7 @@ public class Figuras extends javax.swing.JFrame {
     private javax.swing.JLabel lblRCirculo;
     private javax.swing.JLabel lblRRombo;
     private javax.swing.JLabel lblRTriangulo;
+    private javax.swing.JLabel lblRadio;
     private javax.swing.JLabel lblResultado;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtACi;
@@ -358,8 +399,8 @@ public class Figuras extends javax.swing.JFrame {
     private javax.swing.JTextField txtAltura;
     private javax.swing.JTextField txtAreaCu;
     private javax.swing.JTextField txtBase;
-    private javax.swing.JTextField txtD1;
-    private javax.swing.JTextField txtD2;
+    private javax.swing.JTextField txtDiag1;
+    private javax.swing.JTextField txtDiag2;
     private javax.swing.JTextField txtLado;
     private javax.swing.JTextField txtRadio;
     // End of variables declaration//GEN-END:variables
